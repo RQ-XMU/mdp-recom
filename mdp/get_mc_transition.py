@@ -1,3 +1,8 @@
+'''
+针对每一个用户统计了MC转移矩阵；在统计的时候，每个用户记录的最后一条都忽略了，没有
+讲其计算在内
+'''
+
 import pandas as pd
 import numpy as np
 import scipy.sparse
