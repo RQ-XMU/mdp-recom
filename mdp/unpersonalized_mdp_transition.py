@@ -36,3 +36,16 @@ for movie in range(1682):
 
 sparse_unpersonalized_mc_transition=sparse.coo_matrix(unpersonalized_mc_transition)
 sparse.save_npz(r'E:\RQ-MASTER\recommender system\mdp-recom\FPMC-master\data\unpersonalized\...',sparse_unpersonalized_mc_transition)
+
+
+
+row=sparse_unpersonalized_mc_transition.tocoo().row
+col=sparse_unpersonalized_mc_transition.tocoo().col
+for action in range(1682):
+    unper_mdp_transition=sparse_unpersonalized_mc_transition.todok().copy()
+    for i in range(len(row)):
+        if action!=col[i]:
+            unper_mdp_transition[row[i],col[i]]=0.9*unper_mdp_transition[row[i],col[i]]
+        else:
+            unper_mdp_transition[row[i],col[i]]=1.1*unper_mdp_transition[row[i],col[i]]
+    sparse.save_npz(r'E:\RQ-MASTER\recommender system\mdp-recom\FPMC-master\data\unpersonalized\unpersonalized_mdp_transition\unp_mdp_action_%d' % (action+1),unper_mdp_transition.tocoo())
