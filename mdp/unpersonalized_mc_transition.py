@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import format_transition_df
+from scipy import sparse
 
 
 train_df=format_transition_df(r'E:\RQ-MASTER\recommender system\mdp-recom\FPMC-master\data\train.csv')
@@ -32,3 +33,6 @@ for movie in range(1682):
             next_movie_list.append(train_df.iloc[index+1,1])
         for movieid in set(next_movie_list):
             unpersonalized_mc_transition[movie,movieid-1]=1.0*next_movie_list.count(movieid)/movie_counts[movie+1]
+
+sparse_unpersonalized_mc_transition=sparse.coo_matrix(unpersonalized_mc_transition)
+sparse.save_npz(r'E:\RQ-MASTER\recommender system\mdp-recom\FPMC-master\data\unpersonalized\...',sparse_unpersonalized_mc_transition)
