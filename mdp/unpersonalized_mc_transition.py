@@ -22,3 +22,13 @@ for movie in range(1682):
                 movie_index_temp.append(movie_index_list[i])
     movie_counts[movie+1]=movie_count_temp
     movie_index[movie+1]=movie_index_temp
+
+
+unpersonalized_mc_transition=np.zeros((1682,1682),dtype=np.float32)
+for movie in range(1682):
+    next_movie_list=[]
+    if movie_counts[movie+1]!=0:
+        for index in movie_index[movie+1]:
+            next_movie_list.append(train_df.iloc[index+1,1])
+        for movieid in set(next_movie_list):
+            unpersonalized_mc_transition[movie,movieid-1]=1.0*next_movie_list.count(movieid)/movie_counts[movie+1]
