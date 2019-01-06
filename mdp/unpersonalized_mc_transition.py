@@ -15,7 +15,7 @@ for movie in range(1682):
         df_temp_sorted=df_temp.sort_index(by='TimeStamp')
         len_temp=len(df_temp_sorted['MovieId'])
         movie_index_list=df_temp_sorted.index#记录下在原dataframe中的索引
-        for i in range(len_temp-1):
+        for i in range(len_temp-1):#每个用户的df中的最后一条记录都不计算，不然计算转移概率
             if df_temp_sorted.iloc[i,1]==movie+1:
                 movie_count_temp+=1
                 movie_index_temp.append(movie_index_list[i])
